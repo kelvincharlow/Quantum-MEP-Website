@@ -212,6 +212,15 @@ a {
   display: none;
 }
 
+.swipe-rail {
+  position: relative;
+  min-width: 0;
+}
+
+.swipe-rail__controls {
+  display: none;
+}
+
 .site-header {
   position: sticky;
   z-index: 100;
@@ -522,11 +531,14 @@ a {
   border-radius: 2px 16px 2px 2px;
   background: var(--navy);
   box-shadow: 0 32px 70px rgb(11 42 70 / 18%);
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .hero-gallery__image {
   object-fit: cover;
   opacity: 0;
+  pointer-events: none;
   transform: scale(1.025);
   transition: opacity 800ms ease, transform 6s ease;
 }
@@ -4439,6 +4451,9 @@ a {
     scroll-padding-left: 0;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
   }
 
   .service-grid::-webkit-scrollbar {
@@ -4473,7 +4488,7 @@ a {
     display: flex;
     min-height: 28px;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 8px;
     margin: 0 1px 10px 0;
     color: #51616d;
@@ -4494,6 +4509,37 @@ a {
     width: 15px;
     height: 15px;
     animation: swipe-cue 1.8s ease-in-out infinite;
+  }
+
+  .swipe-rail__controls {
+    position: absolute;
+    z-index: 4;
+    top: -46px;
+    right: 0;
+    display: flex;
+    gap: 6px;
+  }
+
+  .swipe-rail__controls button {
+    display: grid;
+    width: 34px;
+    height: 32px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid rgb(11 42 70 / 18%);
+    border-radius: 3px 8px 3px 3px;
+    color: var(--navy);
+    background: var(--white);
+  }
+
+  .swipe-rail__controls button svg {
+    width: 14px;
+  }
+
+  .featured .swipe-rail__controls button {
+    border-color: rgb(255 255 255 / 22%);
+    color: var(--white);
+    background: rgb(255 255 255 / 7%);
   }
 
   .swipe-hint--light {
@@ -4535,6 +4581,9 @@ a {
     padding-right: 20px;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
   }
 
   .featured__showcase::-webkit-scrollbar {

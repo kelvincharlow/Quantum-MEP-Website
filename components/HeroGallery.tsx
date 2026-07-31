@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type TouchEvent } from "react";
 import towerAerial from "@/app/images/WhatsApp Image 2026-07-30 at 17.09.43.jpeg";
 import residenceWide from "@/app/images/WhatsApp Image 2026-07-30 at 17.10.04.jpeg";
 import residenceTerrace from "@/app/images/WhatsApp Image 2026-07-30 at 17.10.06.jpeg";
@@ -62,6 +62,25 @@ const images: Array<{
 
 export function HeroGallery() {
   const [active, setActive] = useState(0);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  }
+
+  function handleTouchEnd(event: TouchEvent<HTMLDivElement>) {
+    if (!touchStart.current) return;
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStart.current.x;
+    const deltaY = touch.clientY - touchStart.current.y;
+    touchStart.current = null;
+
+    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+    setActive((current) => deltaX < 0
+      ? (current + 1) % images.length
+      : (current - 1 + images.length) % images.length);
+  }
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -78,7 +97,7 @@ export function HeroGallery() {
         <span>Selected work</span>
         <span>0{active + 1} / 0{images.length}</span>
       </div>
-      <div className="hero-gallery">
+      <div className="hero-gallery" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {images.map((image, index) => (
           <Image
             className={index === active ? "hero-gallery__image is-active" : "hero-gallery__image"}

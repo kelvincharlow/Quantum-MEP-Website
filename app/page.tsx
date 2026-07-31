@@ -18,6 +18,7 @@ import {
 import { CTA } from "@/components/CTA";
 import { HeroGallery } from "@/components/HeroGallery";
 import { ProjectCard } from "@/components/ProjectCard";
+import { SwipeRail } from "@/components/SwipeRail";
 import { projects } from "@/lib/projects";
 import kapaProjectImage from "@/app/images/kapa.jpg";
 import karenClinicImage from "@/app/images/karen clinic.jpeg";
@@ -138,7 +139,7 @@ export default function Home() {
             ))}
           </div>
           <div className="swipe-hint" aria-hidden="true"><span>Swipe services</span><i /><ArrowRight /></div>
-          <div className="service-grid" aria-label="Services — swipe horizontally on mobile">
+          <SwipeRail className="service-grid" label="Services — swipe horizontally on mobile">
             {services.map(({ icon: Icon, ...service }, index) => (
               <article className={`service-card service-card--${index + 1}`} key={service.number}>
                 <div className="service-card__top"><span>{service.number}</span><Icon /></div>
@@ -147,7 +148,7 @@ export default function Home() {
                 <Link className="text-link" href="/services">Explore services <ArrowUpRight /></Link>
               </article>
             ))}
-          </div>
+          </SwipeRail>
         </div>
       </section>
 
@@ -163,7 +164,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="swipe-hint swipe-hint--light" aria-hidden="true"><span>Swipe projects</span><i /><ArrowRight /></div>
-          <div className="featured__showcase" aria-label="Selected projects — swipe horizontally on mobile">
+          <SwipeRail className="featured__showcase" label="Selected projects — swipe horizontally on mobile">
             <article className="featured__case featured__case--primary">
               <Link className="featured__case-link" href={`/projects/${projects[0].slug}`}>
                 <Image
@@ -209,7 +210,7 @@ export default function Home() {
                 </article>
               ))}
             </div>
-          </div>
+          </SwipeRail>
         </div>
       </section>
 
