@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
+import { ArrowUpRight, Download, Mail, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
@@ -46,9 +46,14 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <Link className="button button--primary header__cta" href="/contact">
-          Request a consultation <ArrowUpRight />
-        </Link>
+        <div className="header__actions">
+          <a className="header__profile" href="/downloads/quantum-mep-consultants-company-profile-2026.pdf" download aria-label="Download company profile PDF">
+            <Download /><span>Download profile</span>
+          </a>
+          <Link className="button button--primary header__cta" href="/contact">
+            Request a consultation <ArrowUpRight />
+          </Link>
+        </div>
         <button
           className="menu-button"
           type="button"
@@ -71,6 +76,11 @@ export function Header() {
                 <ArrowUpRight />
               </Link>
             ))}
+            <a className="mobile-nav__download" href="/downloads/quantum-mep-consultants-company-profile-2026.pdf" download>
+              <span className="mobile-nav__index">06</span>
+              <span className="mobile-nav__copy"><strong>Company profile</strong><small>Download PDF · 17.5 MB</small></span>
+              <Download />
+            </a>
           </div>
           <div className="mobile-nav__action">
             <p>Have a project in mind?</p>
