@@ -94,7 +94,7 @@ export const projects: Project[] = [
     shortTitle: "Tsavo Delight",
     industry: "Residential",
     projectType: "Apartment Development",
-    location: "Kileleshwa, Nairobi",
+    location: "Kileleshwa, Nairobi, Kenya",
     role: "Electrical systems design",
     summary:
       "Smart electrical systems for a large-scale, high-rise residential development.",

@@ -21,12 +21,12 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { SwipeRail } from "@/components/SwipeRail";
 import { projects } from "@/lib/projects";
 import kapaProjectImage from "@/app/images/kapa.jpg";
-import karenClinicImage from "@/app/images/karen clinic.jpeg";
+import agcClinicImage from "@/app/images/AGC.jpeg";
 import wilsonProjectImage from "@/app/images/willson.jpeg";
 
 const selectedProjectImages = {
   "agc-tenwek-hospital-karen-clinic": {
-    src: karenClinicImage,
+    src: agcClinicImage,
     alt: "AGC Tenwek Hospital Karen Clinic project exterior",
     position: "center",
   },
@@ -35,9 +35,9 @@ const selectedProjectImages = {
     alt: "Kapa Oil Refineries industrial construction site",
     position: "center",
   },
-  "wilson-airport-office-hangar": {
+  "tsavo-delight": {
     src: wilsonProjectImage,
-    alt: "Wilson Airport Office Block and Hangar architectural rendering",
+    alt: "Architectural rendering used for the Tsavo Delight residential project",
     position: "center 44%",
   },
 } as const;
@@ -187,7 +187,7 @@ export default function Home() {
               </Link>
             </article>
             <div className="featured__side">
-              {projects.slice(1, 3).map((project) => (
+              {[projects[1], projects[5]].map((project) => (
                 <article className="featured__case featured__case--compact" key={project.slug}>
                   <Link className="featured__case-link" href={`/projects/${project.slug}`}>
                     <Image

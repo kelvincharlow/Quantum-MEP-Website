@@ -1686,7 +1686,7 @@ a {
   gap: 28px;
 }
 
-.mobile-contact-bar {
+.mobile-contact-dock {
   display: none;
 }
 
@@ -3943,10 +3943,6 @@ a {
 }
 
 @media (max-width: 760px) {
-  body {
-    padding-bottom: 64px;
-  }
-
   .container {
     width: calc(100% - 40px);
   }
@@ -4926,35 +4922,87 @@ a {
     gap: 18px;
   }
 
-  .mobile-contact-bar {
+  .mobile-contact-dock {
     position: fixed;
     z-index: 90;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
     display: grid;
-    height: 64px;
-    padding: 7px;
-    border-top: 1px solid rgb(255 255 255 / 12%);
-    background: #061c2d;
-    grid-template-columns: 1fr 1fr;
+    justify-items: end;
+    gap: 9px;
   }
 
-  .mobile-contact-bar a {
+  .mobile-contact-dock__trigger {
     display: flex;
+    min-width: 116px;
+    height: 50px;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    padding: 8px 15px;
+    border: 0;
+    border-radius: 5px 14px 5px 5px;
+    color: var(--navy);
+    background: var(--yellow);
+    box-shadow: 0 16px 36px rgb(3 21 34 / 24%);
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  .mobile-contact-dock__trigger svg {
+    width: 17px;
+  }
+
+  .mobile-contact-dock__actions {
+    display: grid;
+    width: min(205px, calc(100vw - 32px));
+    gap: 7px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px) scale(0.96);
+    transform-origin: right bottom;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .mobile-contact-dock--open .mobile-contact-dock__actions {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .mobile-contact-dock__actions a {
+    display: grid;
+    min-height: 56px;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 13px;
+    border: 1px solid rgb(255 255 255 / 13%);
+    border-radius: 4px 12px 4px 4px;
     color: var(--white);
-    font-size: 0.75rem;
-    font-weight: 700;
+    background: rgb(6 28 45 / 96%);
+    box-shadow: 0 14px 34px rgb(3 21 34 / 22%);
+    backdrop-filter: blur(14px);
   }
 
-  .mobile-contact-bar a:first-child {
-    border-right: 1px solid rgb(255 255 255 / 15%);
+  .mobile-contact-dock__actions span,
+  .mobile-contact-dock__actions small,
+  .mobile-contact-dock__actions strong {
+    display: block;
   }
 
-  .mobile-contact-bar svg {
+  .mobile-contact-dock__actions small {
+    margin-bottom: 2px;
+    color: rgb(255 255 255 / 48%);
+    font-size: 0.52rem;
+  }
+
+  .mobile-contact-dock__actions strong {
+    color: var(--white);
+    font-size: 0.69rem;
+  }
+
+  .mobile-contact-dock__actions svg {
     width: 17px;
     color: var(--yellow);
   }
