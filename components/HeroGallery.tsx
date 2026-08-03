@@ -5,7 +5,6 @@ import { useEffect, useRef, useState, type TouchEvent } from "react";
 import towerAerial from "@/app/images/WhatsApp Image 2026-07-30 at 17.09.43.jpeg";
 import residenceWide from "@/app/images/WhatsApp Image 2026-07-30 at 17.10.04.jpeg";
 import residenceTerrace from "@/app/images/WhatsApp Image 2026-07-30 at 17.10.06.jpeg";
-import capitalSuites from "@/app/images/WhatsApp Image 2026-07-30 at 17.10.10.jpeg";
 import residenceInterior from "@/app/images/WhatsApp Image 2026-07-30 at 17.10.13.jpeg";
 import poolTerrace from "@/app/images/aa.jpeg";
 
@@ -17,23 +16,9 @@ const images: Array<{
   caption: string;
 }> = [
   {
-    src: towerAerial,
-    alt: "Architectural aerial rendering of a high-rise development",
-    position: "center 46%",
-    label: "High-rise",
-    caption: "Coordinated for vertical complexity.",
-  },
-  {
-    src: capitalSuites,
-    alt: "Architectural rendering of the Capital Suites high-rise",
-    position: "center 42%",
-    label: "Hospitality",
-    caption: "Comfort and efficiency, designed as one.",
-  },
-  {
     src: residenceWide,
     alt: "Residential development with landscaped grounds and swimming pool",
-    position: "center",
+    position: "center 48%",
     label: "Residential",
     caption: "Services shaped around everyday living.",
   },
@@ -57,6 +42,13 @@ const images: Array<{
     position: "center",
     label: "Interiors",
     caption: "Lighting, comfort and controls in harmony.",
+  },
+  {
+    src: towerAerial,
+    alt: "Architectural aerial rendering of a high-rise development",
+    position: "center 46%",
+    label: "High-rise",
+    caption: "Coordinated for vertical complexity.",
   },
 ];
 
@@ -99,16 +91,17 @@ export function HeroGallery() {
       </div>
       <div className="hero-gallery" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {images.map((image, index) => (
-          <Image
-            className={index === active ? "hero-gallery__image is-active" : "hero-gallery__image"}
-            src={image.src}
-            alt={image.alt}
-            fill
-            priority={index === 0}
-            sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 52vw, 620px"
-            style={{ objectPosition: image.position }}
-            key={image.alt}
-          />
+          <div className={index === active ? "hero-gallery__slide is-active" : "hero-gallery__slide"} key={image.alt}>
+            <Image
+              className="hero-gallery__image"
+              src={image.src}
+              alt={image.alt}
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              style={{ objectPosition: image.position }}
+            />
+          </div>
         ))}
         <div className="hero-gallery__wash" aria-hidden="true" />
         <div className="hero-gallery__controls" aria-label="Choose hero image">

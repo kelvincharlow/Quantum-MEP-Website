@@ -74,50 +74,53 @@ const industries = [
 
 export default function Home() {
   return (
-    <>
+    <div className="home-page">
       <section className="hero">
-        <div className="container hero__grid">
-          <div className="hero__copy">
-            <p className="eyebrow"><span /> Integrated MEP engineering</p>
-            <h1>
-              <span className="hero__title-desktop">
-                The engineering behind buildings that <span className="hero__highlight">perform.</span>
-              </span>
-              <span className="hero__title-mobile">
-                Buildings engineered to <span className="hero__highlight">perform.</span>
-              </span>
-            </h1>
-            <p className="hero__lead">
-              Quantum brings mechanical, electrical and plumbing expertise
-              together—from first concept to long-term operation.
-            </p>
-            <div className="button-row">
-              <Link className="button button--primary hero__primary-cta" href="/contact">
-                Discuss your project <ArrowUpRight />
-              </Link>
-              <Link className="button button--outline hero__secondary-cta" href="/projects">
-                Explore our work <ArrowRight />
-              </Link>
-            </div>
-            <div className="hero__credentials" aria-label="Quantum at a glance">
-              <div>
-                <small>Established</small>
-                <strong>Since 2017</strong>
-              </div>
-              <div>
-                <small>Expertise</small>
-                <strong>Design · Build · Support</strong>
-              </div>
-            </div>
-          </div>
+        <div className="hero__stage">
+          <p className="eyebrow hero__mobile-kicker"><span /> Integrated MEP engineering</p>
           <div className="hero__visual">
             <HeroGallery />
             <span className="hero__vertical-note" aria-hidden="true">Nairobi · Kenya · East Africa</span>
           </div>
-        </div>
-        <div className="container hero__scroll-cue" aria-hidden="true">
-          <span />
-          <small>Explore Quantum</small>
+          <div className="container hero__overlay">
+            <div className="hero__copy">
+              <p className="eyebrow"><span /> Integrated MEP engineering</p>
+              <h1>
+                <span className="hero__title-desktop">
+                  The engineering behind buildings that <span className="hero__highlight">perform.</span>
+                </span>
+                <span className="hero__title-mobile">
+                  Buildings engineered to <span className="hero__highlight">perform.</span>
+                </span>
+              </h1>
+              <p className="hero__lead">
+                Quantum brings mechanical, electrical and plumbing expertise
+                together—from first concept to long-term operation.
+              </p>
+              <div className="button-row">
+                <Link className="button button--primary hero__primary-cta" href="/contact">
+                  Discuss your project <ArrowUpRight />
+                </Link>
+                <Link className="button button--outline hero__secondary-cta" href="/projects">
+                  Explore our work <ArrowRight />
+                </Link>
+              </div>
+              <div className="hero__credentials" aria-label="Quantum at a glance">
+                <div>
+                  <small>Established</small>
+                  <strong>Since 2017</strong>
+                </div>
+                <div>
+                  <small>Expertise</small>
+                  <strong>Design · Build · Support</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="container hero__scroll-cue" aria-hidden="true">
+            <span />
+            <small>Explore Quantum</small>
+          </div>
         </div>
       </section>
 
@@ -259,6 +262,6 @@ export default function Home() {
         </div>
       </section>
       <CTA />
-    </>
+    </div>
   );
 }
