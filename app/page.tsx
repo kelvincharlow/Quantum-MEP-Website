@@ -42,6 +42,10 @@ const selectedProjectImages = {
   },
 } as const;
 
+const featuredSideProjects = projects.filter(({ slug }) =>
+  slug === "kapa-oil-refineries" || slug === "tsavo-delight"
+);
+
 const services = [
   {
     number: "01",
@@ -190,7 +194,7 @@ export default function Home() {
               </Link>
             </article>
             <div className="featured__side">
-              {[projects[1], projects[5]].map((project) => (
+              {featuredSideProjects.map((project) => (
                 <article className="featured__case featured__case--compact" key={project.slug}>
                   <Link className="featured__case-link" href={`/projects/${project.slug}`}>
                     <Image

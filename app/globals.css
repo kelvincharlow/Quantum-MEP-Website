@@ -5975,8 +5975,8 @@ html[data-home-theme="dark"] .footer {
   z-index: 1;
   inset: 0;
   background:
-    linear-gradient(90deg, rgb(3 18 29 / 82%) 0%, rgb(5 24 37 / 62%) 35%, rgb(5 24 37 / 18%) 68%, rgb(5 24 37 / 5%) 100%),
-    linear-gradient(0deg, rgb(3 16 25 / 38%), transparent 45%);
+    linear-gradient(90deg, rgb(3 18 29 / 76%) 0%, rgb(5 24 37 / 54%) 35%, rgb(5 24 37 / 12%) 68%, rgb(5 24 37 / 2%) 100%),
+    linear-gradient(0deg, rgb(3 16 25 / 30%), transparent 45%);
   content: "";
   pointer-events: none;
 }
@@ -6113,8 +6113,8 @@ html[data-home-theme="dark"] .footer {
 
 html[data-home-theme="dark"] .hero__stage .hero__visual::after {
   background:
-    linear-gradient(90deg, rgb(2 14 22 / 87%) 0%, rgb(4 21 32 / 68%) 35%, rgb(4 21 32 / 22%) 68%, rgb(4 21 32 / 8%) 100%),
-    linear-gradient(0deg, rgb(2 14 22 / 44%), transparent 45%);
+    linear-gradient(90deg, rgb(2 14 22 / 81%) 0%, rgb(4 21 32 / 59%) 35%, rgb(4 21 32 / 16%) 68%, rgb(4 21 32 / 4%) 100%),
+    linear-gradient(0deg, rgb(2 14 22 / 34%), transparent 45%);
 }
 
 @media (max-width: 1050px) {

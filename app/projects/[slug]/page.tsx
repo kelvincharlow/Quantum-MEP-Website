@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Check, MapPin } from "lucide-react";
 import { CTA } from "@/components/CTA";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -31,11 +31,6 @@ const projectMedia: Partial<Record<string, ProjectMedia>> = {
     heroAlt: "Kapa Oil Refineries industrial construction site",
     position: "center",
   },
-  "wilson-airport-office-hangar": {
-    hero: wilsonImage,
-    heroAlt: "Wilson Airport Office Block and Hangar architectural rendering",
-    position: "center 44%",
-  },
   "tsavo-delight": {
     hero: wilsonImage,
     heroAlt: "Architectural rendering used for the Tsavo Delight residential project",
@@ -49,12 +44,14 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === "wilson-airport-office-hangar") redirect("/projects/tsavo-delight");
   const project = getProject(slug);
   return project ? { title: project.title, description: project.summary } : {};
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  if (slug === "wilson-airport-office-hangar") redirect("/projects/tsavo-delight");
   const project = getProject(slug);
   if (!project) notFound();
 

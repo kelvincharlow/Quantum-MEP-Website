@@ -4,13 +4,13 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import { ProjectVisual } from "./ProjectVisual";
 import kapaImage from "@/app/images/kapa.jpg";
-import karenClinicImage from "@/app/images/karen clinic.jpeg";
+import agcImage from "@/app/images/AGC.jpeg";
 import wilsonImage from "@/app/images/willson.jpeg";
 
 const projectImages: Partial<Record<Project["slug"], { src: StaticImageData; position: string }>> = {
-  "agc-tenwek-hospital-karen-clinic": { src: karenClinicImage, position: "center" },
+  "agc-tenwek-hospital-karen-clinic": { src: agcImage, position: "center" },
   "kapa-oil-refineries": { src: kapaImage, position: "center" },
-  "wilson-airport-office-hangar": { src: wilsonImage, position: "center 44%" },
+  "tsavo-delight": { src: wilsonImage, position: "center 44%" },
 };
 
 export function ProjectCard({ project, portfolio = false, index }: { project: Project; portfolio?: boolean; index?: number }) {

@@ -44,21 +44,6 @@ export const projects: Project[] = [
     tone: "steel",
   },
   {
-    slug: "wilson-airport-office-hangar",
-    title: "Wilson Airport Office Block and Hangar",
-    shortTitle: "Wilson Airport Hangar",
-    industry: "Aviation",
-    projectType: "Office Building and Aircraft Hangar",
-    location: "Lang’ata, Nairobi",
-    role: "Design, installation, testing and commissioning",
-    summary:
-      "Integrated environmental, power and safety systems for aviation operations.",
-    scope:
-      "The project covered HVAC and ventilation for offices and aircraft-maintenance areas, power distribution, high-bay and apron lighting, backup power, earthing, lightning protection, low-current systems, plumbing, drainage and oil-water separation.",
-    services: ["HVAC", "Electrical", "Low current", "Plumbing"],
-    tone: "sky",
-  },
-  {
     slug: "rubis-petrol-station-kericho",
     title: "Rubis Petrol Station, Kericho",
     shortTitle: "Rubis Petrol Station",
@@ -109,7 +94,6 @@ export const industries = [
   "All",
   "Healthcare",
   "Industrial",
-  "Aviation",
   "Energy and Utilities",
   "Hospitality",
   "Residential",

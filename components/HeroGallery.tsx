@@ -75,10 +75,9 @@ export function HeroGallery() {
   }
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setInterval(
       () => setActive((current) => (current + 1) % images.length),
-      6000,
+      5000,
     );
     return () => window.clearInterval(timer);
   }, []);
