@@ -17,9 +17,8 @@ const links = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [homeTheme, setHomeTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const pathname = usePathname();
-  const isHome = pathname === "/";
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -36,25 +35,21 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    if (!isHome) {
-      delete document.documentElement.dataset.homeTheme;
-      return;
-    }
-
-    const savedTheme = window.localStorage.getItem("quantum-home-theme");
+    const savedTheme = window.localStorage.getItem("quantum-theme")
+      ?? window.localStorage.getItem("quantum-home-theme");
     const preferredTheme = savedTheme === "dark" || savedTheme === "light"
       ? savedTheme
       : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
-    setHomeTheme(preferredTheme);
+    setTheme(preferredTheme);
     document.documentElement.dataset.homeTheme = preferredTheme;
-  }, [isHome]);
+  }, []);
 
-  const toggleHomeTheme = () => {
-    const nextTheme = homeTheme === "dark" ? "light" : "dark";
-    setHomeTheme(nextTheme);
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
     document.documentElement.dataset.homeTheme = nextTheme;
-    window.localStorage.setItem("quantum-home-theme", nextTheme);
+    window.localStorage.setItem("quantum-theme", nextTheme);
   };
 
   const isActive = (href: string) => href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -71,11 +66,9 @@ export function Header() {
           ))}
         </nav>
         <div className="header__actions">
-          {isHome && (
-            <button className="theme-toggle" type="button" aria-label={`Switch to ${homeTheme === "dark" ? "light" : "dark"} mode`} aria-pressed={homeTheme === "dark"} onClick={toggleHomeTheme}>
-              {homeTheme === "dark" ? <Sun /> : <Moon />}
-            </button>
-          )}
+          <button className="theme-toggle" type="button" aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} aria-pressed={theme === "dark"} onClick={toggleTheme}>
+            {theme === "dark" ? <Sun /> : <Moon />}
+          </button>
           <a className="header__profile" href="/downloads/quantum-mep-consultants-company-profile-2026.pdf" download aria-label="Download company profile PDF">
             <Download /><span>Download profile</span>
           </a>
@@ -84,11 +77,9 @@ export function Header() {
           </Link>
         </div>
         <div className="header__mobile-controls">
-          {isHome && (
-            <button className="theme-toggle" type="button" aria-label={`Switch to ${homeTheme === "dark" ? "light" : "dark"} mode`} aria-pressed={homeTheme === "dark"} onClick={toggleHomeTheme}>
-              {homeTheme === "dark" ? <Sun /> : <Moon />}
-            </button>
-          )}
+          <button className="theme-toggle" type="button" aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} aria-pressed={theme === "dark"} onClick={toggleTheme}>
+            {theme === "dark" ? <Sun /> : <Moon />}
+          </button>
           <button
             className="menu-button"
             type="button"
