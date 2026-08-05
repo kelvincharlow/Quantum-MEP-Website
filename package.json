@@ -6,15 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "sanity:seed": "node --env-file=.env.local scripts/seed-sanity.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "latest",
     "@fontsource-variable/manrope": "latest",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^6.9.0",
     "lucide-react": "latest",
     "next": "latest",
+    "next-sanity": "^13.3.1",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "sanity": "^6.9.0",
+    "styled-components": "^6.5.0"
   },
   "devDependencies": {
     "@types/node": "latest",

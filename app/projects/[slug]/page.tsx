@@ -1,62 +1,35 @@
 import type { Metadata } from "next";
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Check, MapPin } from "lucide-react";
 import { CTA } from "@/components/CTA";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectVisual } from "@/components/ProjectVisual";
-import { getProject, projects } from "@/lib/projects";
-import agcImage from "@/app/images/AGC.jpeg";
-import karenClinicImage from "@/app/images/karen clinic.jpeg";
-import kapaImage from "@/app/images/kapa.jpg";
-import wilsonImage from "@/app/images/willson.jpeg";
+import { getProjectBySlug, getProjects } from "@/lib/projects";
 
-type ProjectMedia = {
-  hero: StaticImageData;
-  heroAlt: string;
-  position?: string;
-  gallery?: Array<{ src: StaticImageData; alt: string; position?: string }>;
-};
-
-const projectMedia: Partial<Record<string, ProjectMedia>> = {
-  "agc-tenwek-hospital-karen-clinic": {
-    hero: agcImage,
-    heroAlt: "Entrance to AGC Tenwek Hospital Karen Clinic",
-    position: "center 47%",
-    gallery: [{ src: karenClinicImage, alt: "Architectural visualization associated with the Karen Clinic project", position: "center" }],
-  },
-  "kapa-oil-refineries": {
-    hero: kapaImage,
-    heroAlt: "Kapa Oil Refineries industrial construction site",
-    position: "center",
-  },
-  "tsavo-delight": {
-    hero: wilsonImage,
-    heroAlt: "Architectural rendering used for the Tsavo Delight residential project",
-    position: "center 44%",
-  },
-};
-
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const projects = await getProjects();
   return projects.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   if (slug === "wilson-airport-office-hangar") redirect("/projects/tsavo-delight");
-  const project = getProject(slug);
-  return project ? { title: project.title, description: project.summary } : {};
+  const project = await getProjectBySlug(slug);
+  return project
+    ? { title: project.seoTitle || project.title, description: project.seoDescription || project.summary }
+    : {};
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (slug === "wilson-airport-office-hangar") redirect("/projects/tsavo-delight");
-  const project = getProject(slug);
+  const projects = await getProjects();
+  const project = projects.find((item) => item.slug === slug);
   if (!project) notFound();
 
   const projectIndex = projects.findIndex((item) => item.slug === slug);
-  const media = projectMedia[slug];
   const related = projects.filter(({ slug: itemSlug }) => itemSlug !== slug).slice(0, 2);
   const facts = [
     ["Location", project.location],
@@ -82,8 +55,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <span className="project-detail-hero__location"><MapPin /> {project.location}</span>
               </div>
               <div className="project-detail-hero__visual">
-                {media ? (
-                  <Image src={media.hero} alt={media.heroAlt} fill priority sizes="(max-width: 760px) 100vw, 58vw" style={{ objectPosition: media.position }} />
+                {project.coverImage ? (
+                  <Image src={project.coverImage.src} alt={project.coverImage.alt} fill priority sizes="(max-width: 760px) 100vw, 58vw" style={{ objectPosition: project.coverImage.position }} />
                 ) : (
                   <ProjectVisual title={project.shortTitle} tone={project.tone} showLabel={false} />
                 )}
@@ -111,7 +84,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        {media?.gallery?.length ? (
+        {project.gallery?.length ? (
           <section className="project-detail-gallery">
             <div className="container">
               <div className="project-detail-gallery__heading">
@@ -119,7 +92,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <p>Selected visual material from the project record.</p>
               </div>
               <div className="project-detail-gallery__grid">
-                {media.gallery.map((image) => (
+                {project.gallery.map((image) => (
                   <div className="project-detail-gallery__image" key={image.alt}>
                     <Image src={image.src} alt={image.alt} fill sizes="(max-width: 760px) 100vw, 68vw" style={{ objectPosition: image.position }} />
                   </div>

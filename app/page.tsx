@@ -17,34 +17,9 @@ import {
 } from "lucide-react";
 import { CTA } from "@/components/CTA";
 import { HeroGallery } from "@/components/HeroGallery";
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectVisual } from "@/components/ProjectVisual";
 import { SwipeRail } from "@/components/SwipeRail";
-import { projects } from "@/lib/projects";
-import kapaProjectImage from "@/app/images/kapa.jpg";
-import agcClinicImage from "@/app/images/AGC.jpeg";
-import wilsonProjectImage from "@/app/images/willson.jpeg";
-
-const selectedProjectImages = {
-  "agc-tenwek-hospital-karen-clinic": {
-    src: agcClinicImage,
-    alt: "AGC Tenwek Hospital Karen Clinic project exterior",
-    position: "center",
-  },
-  "kapa-oil-refineries": {
-    src: kapaProjectImage,
-    alt: "Kapa Oil Refineries industrial construction site",
-    position: "center",
-  },
-  "tsavo-delight": {
-    src: wilsonProjectImage,
-    alt: "Architectural rendering used for the Tsavo Delight residential project",
-    position: "center 44%",
-  },
-} as const;
-
-const featuredSideProjects = projects.filter(({ slug }) =>
-  slug === "kapa-oil-refineries" || slug === "tsavo-delight"
-);
+import { getFeaturedProjects, getProjects } from "@/lib/projects";
 
 const services = [
   {
@@ -76,7 +51,12 @@ const industries = [
   [Building2, "Residential", "Everyday performance"],
 ];
 
-export default function Home() {
+export default async function Home() {
+  const projects = await getProjects();
+  const featuredProjects = getFeaturedProjects(projects);
+  const leadProject = featuredProjects[0];
+  const featuredSideProjects = featuredProjects.slice(1, 3);
+
   return (
     <div className="home-page">
       <section className="hero">
@@ -173,21 +153,25 @@ export default function Home() {
           <div className="swipe-hint swipe-hint--light" aria-hidden="true"><span>Swipe projects</span><i /><ArrowRight /></div>
           <SwipeRail className="featured__showcase" label="Selected projects — swipe horizontally on mobile">
             <article className="featured__case featured__case--primary">
-              <Link className="featured__case-link" href={`/projects/${projects[0].slug}`}>
-                <Image
-                  className="featured__case-image"
-                  src={selectedProjectImages["agc-tenwek-hospital-karen-clinic"].src}
-                  alt={selectedProjectImages["agc-tenwek-hospital-karen-clinic"].alt}
-                  fill
-                  sizes="(max-width: 760px) 86vw, 58vw"
-                  style={{ objectPosition: selectedProjectImages["agc-tenwek-hospital-karen-clinic"].position }}
-                />
+              <Link className="featured__case-link" href={`/projects/${leadProject.slug}`}>
+                {leadProject.coverImage ? (
+                  <Image
+                    className="featured__case-image"
+                    src={leadProject.coverImage.src}
+                    alt={leadProject.coverImage.alt}
+                    fill
+                    sizes="(max-width: 760px) 86vw, 58vw"
+                    style={{ objectPosition: leadProject.coverImage.position }}
+                  />
+                ) : (
+                  <ProjectVisual title={leadProject.shortTitle} tone={leadProject.tone} showLabel={false} />
+                )}
                 <div className="featured__case-copy">
                   <div>
-                    <p className="eyebrow eyebrow--yellow">{projects[0].industry}</p>
-                    <h3>{projects[0].title}</h3>
-                    <p className="featured__case-summary">{projects[0].summary}</p>
-                    <span className="featured__case-location"><MapPin /> {projects[0].location}</span>
+                    <p className="eyebrow eyebrow--yellow">{leadProject.industry}</p>
+                    <h3>{leadProject.title}</h3>
+                    <p className="featured__case-summary">{leadProject.summary}</p>
+                    <span className="featured__case-location"><MapPin /> {leadProject.location}</span>
                   </div>
                   <span className="featured__case-arrow" aria-hidden="true"><ArrowUpRight /></span>
                 </div>
@@ -197,14 +181,18 @@ export default function Home() {
               {featuredSideProjects.map((project) => (
                 <article className="featured__case featured__case--compact" key={project.slug}>
                   <Link className="featured__case-link" href={`/projects/${project.slug}`}>
-                    <Image
-                      className="featured__case-image"
-                      src={selectedProjectImages[project.slug as keyof typeof selectedProjectImages].src}
-                      alt={selectedProjectImages[project.slug as keyof typeof selectedProjectImages].alt}
-                      fill
-                      sizes="(max-width: 760px) 86vw, 30vw"
-                      style={{ objectPosition: selectedProjectImages[project.slug as keyof typeof selectedProjectImages].position }}
-                    />
+                    {project.coverImage ? (
+                      <Image
+                        className="featured__case-image"
+                        src={project.coverImage.src}
+                        alt={project.coverImage.alt}
+                        fill
+                        sizes="(max-width: 760px) 86vw, 30vw"
+                        style={{ objectPosition: project.coverImage.position }}
+                      />
+                    ) : (
+                      <ProjectVisual title={project.shortTitle} tone={project.tone} showLabel={false} />
+                    )}
                     <div className="featured__case-copy">
                       <div>
                         <p className="eyebrow eyebrow--yellow">{project.industry}</p>

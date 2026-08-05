@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { industries, projects } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import { ProjectCard } from "./ProjectCard";
 
-export function ProjectFilter() {
+export function ProjectFilter({ projects, industries }: { projects: Project[]; industries: string[] }) {
   const [active, setActive] = useState("All");
   const visible = active === "All" ? projects : projects.filter((project) => project.industry === active);
 

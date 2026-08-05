@@ -6318,6 +6318,56 @@ html[data-home-theme="dark"] .home-page .service-card--3 h3 {
   color: var(--navy);
 }
 
+.studio-setup {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: #eaf0f3;
+  background:
+    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px),
+    #071b29;
+  background-size: 40px 40px;
+}
+
+.studio-setup > div {
+  width: min(100%, 620px);
+  padding: clamp(28px, 5vw, 56px);
+  border: 1px solid rgb(255 255 255 / 13%);
+  border-radius: 20px;
+  background: #102c3d;
+  box-shadow: 0 28px 80px rgb(0 0 0 / 30%);
+}
+
+.studio-setup span {
+  color: var(--yellow);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.studio-setup h1 {
+  margin: 18px 0 14px;
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 0.98;
+}
+
+.studio-setup p {
+  margin: 0;
+  color: #b8c6ce;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.studio-setup code {
+  color: #fff;
+}
+
 html[data-home-theme="dark"] main .eyebrow {
   color: #d9e1e5;
 }
